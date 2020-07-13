@@ -58,7 +58,7 @@ const Dialog = ({
   return (
     <div
       ref={containerRef}
-      className={cx("dialog-date-picker", {
+      className={cx('dialog-date-picker', {
         open: isOpen,
         hide: !isOpen && hideAnimation,
       })}
