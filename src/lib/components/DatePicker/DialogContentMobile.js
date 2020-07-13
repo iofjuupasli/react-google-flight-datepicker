@@ -18,7 +18,7 @@ const DialogContentMobile = ({
   monthFormat,
   isOpen,
   isSingle,
-  highlightToday
+  highlightToday,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
   const minYear = minDate ? dayjs(minDate).year() : 1900;

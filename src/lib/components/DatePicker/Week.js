@@ -24,7 +24,6 @@ const Week = ({
 }) => {
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
-
       const dateIndex = index + week.start;
       const dateValue = dayjs(`${year}-${month + 1}-${dateIndex}`);
       const disabled = (minDate && dateValue.isBefore(minDate, 'date'))

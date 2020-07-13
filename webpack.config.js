@@ -2,6 +2,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+
 const isProduction = process.env.NODE_ENV === 'production';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
@@ -13,7 +14,7 @@ module.exports = {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
-    globalObject: 'this'
+    globalObject: 'this',
   },
   externals: {
     react: 'react',
@@ -39,22 +40,22 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader'
+          'sass-loader',
         ],
       },
       {
         test: /\.svg$/,
         use: [
           {
-            loader: "babel-loader"
+            loader: 'babel-loader',
           },
           {
-            loader: "react-svg-loader",
+            loader: 'react-svg-loader',
             options: {
-              jsx: true // true outputs JSX tags
-            }
-          }
-        ]
+              jsx: true, // true outputs JSX tags
+            },
+          },
+        ],
       },
     ],
   },
@@ -64,10 +65,10 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new Visualizer({
-      filename: '../statistics.html'
+      filename: '../statistics.html',
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-    })
+    }),
   ],
 };

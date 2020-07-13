@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import RangeDatePicker from './RangeDatePicker';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
+import RangeDatePicker from './RangeDatePicker';
 
 const TestDatePicker = () => {
   const [startDate, setStartDate] = useState(null);
   setTimeout(() => {
     setStartDate(dayjs().add(3, 'day'));
   }, 5000);
+
   return (
     <RangeDatePicker
       startDate={startDate}
@@ -15,6 +16,6 @@ const TestDatePicker = () => {
       }}
     />
   );
-}
+};
 
 export default TestDatePicker;

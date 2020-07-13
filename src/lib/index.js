@@ -3,5 +3,5 @@ import { RangeDatePicker, SingleDatePicker, TestDatePicker } from './components/
 export {
   RangeDatePicker,
   SingleDatePicker,
-  TestDatePicker
+  TestDatePicker,
 };

@@ -302,7 +302,7 @@ DialogContentDesktop.propTypes = {
   isSingle: PropTypes.bool,
   isOpen: PropTypes.bool,
   dateChanged: PropTypes.instanceOf(Date),
-  highlightToday: PropTypes.bool
+  highlightToday: PropTypes.bool,
 };
 
 DialogContentDesktop.defaultProps = {
