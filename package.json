@@ -20,7 +20,7 @@
     "test:coverage": "jest --coverage --forceExit --colors",
     "lint": "esw --ext .jsx --ext .js --color",
     "lint:fix": "yarn lint --fix",
-    "prerelease": "yarn lint:fix && yarn test:coverage && yarn build",
+    "prerelease": "yarn lint:fix && yarn build",
     "release": "npm publish",
     "predeploy": "yarn styleguide:build",
     "deploy": "gh-pages -d styleguide"
