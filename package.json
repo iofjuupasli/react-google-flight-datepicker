@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/JSLancerTeam/react-google-flight-datepicker",
   "main": "dist/index.js",
+  "types": "./src/lib/index.d.ts",
   "engines": {
     "node": ">=8",
     "npm": ">=5"

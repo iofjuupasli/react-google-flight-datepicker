@@ -131,7 +131,7 @@
   .icon-calendar {
     width: 24px;
     height: 24px;
-    fill: #1a73e8;
+    fill: #4e6ce4;
     margin-right: 12px;
 
     &.mobile {
@@ -213,7 +213,7 @@
     &::after {
       content: '';
       margin: -1px;
-      border: 2px solid #1a73e8;
+      border: 2px solid #4e6ce4;
       border-radius: 4px;
       position: absolute;
       pointer-events: none;
@@ -344,12 +344,12 @@
       z-index: 1;
 
       &.first-day {
-        background: linear-gradient(to right, #fff, #daedfd);
+        background: linear-gradient(to right, #fff, #eef0f2);
         left: -10px;
       }
 
       &.last-day {
-        background: linear-gradient(to left, #fff, #daedfd);
+        background: linear-gradient(to left, #fff, #eef0f2);
         right: -10px;
       }
     }
@@ -370,7 +370,7 @@
 
     &:hover::after {
       background-color: #fff;
-      border: 2px solid #4285f4;
+      border: 2px solid #4766e3;
       bottom: -2px;
       left: -2px;
       right: -2px;
@@ -385,7 +385,7 @@
       }
 
       &::after {
-        background-color: #4285f4;
+        background-color: #4766e3;
         border-radius: 100%;
       }
 
@@ -407,7 +407,7 @@
     }
 
     &.hovered {
-      background-color: #d9edfd;
+      background-color: #eef0f2;
       border-radius: unset;
 
       .background-day {
@@ -415,11 +415,11 @@
       }
 
       &.end {
-        background: linear-gradient(90deg, #d9edfd 50%, #fff 50%);
+        background: linear-gradient(90deg, #eef0f2 50%, #fff 50%);
       }
 
       &:hover {
-        background-color: #d9edfd;
+        background-color: #eef0f2;
 
         &::after {
           border-radius: 100%;
@@ -429,11 +429,11 @@
     }
 
     &.selected.hovered {
-      background: linear-gradient(90deg, #fff 50%, #d9edfd 50%);
+      background: linear-gradient(90deg, #fff 50%, #eef0f2 50%);
       color: #fff;
 
       &.end {
-        background: linear-gradient(90deg, #d9edfd 50%, #fff 50%);
+        background: linear-gradient(90deg, #eef0f2 50%, #fff 50%);
       }
 
       &:hover {
@@ -442,7 +442,7 @@
 
       &::after {
         border-radius: 100%;
-        background-color: #4285f4;
+        background-color: #4766e3;
       }
 
       &:hover::after {
@@ -517,7 +517,7 @@
       line-height: 16px;
       text-transform: uppercase;
       color: #fff;
-      background: #4285f4;
+      background: #4766e3;
       height: 36px;
       min-width: 88px;
       font-weight: 500;
@@ -679,7 +679,7 @@
         color: #fff !important;
 
         &::after {
-          background-color: #4285f4 !important;
+          background-color: #4766e3 !important;
         }
       }
     }
