@@ -19,6 +19,7 @@ import { RangeDatePicker } from '@iofjuupasli/react-google-flight-datepicker';
       dateFormat="dd/MM/yyyy"
       // monthFormat="MMM --- YY"
       topBar={<div>Test</div>}
+      DoneButton={({onClick}) => <button onClick={onClick}>Done</button>}
     />
   </div>
 </div>

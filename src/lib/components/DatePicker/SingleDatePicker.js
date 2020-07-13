@@ -23,6 +23,8 @@ const SingleDatePicker = ({
   dateFormat,
   monthFormat,
   highlightToday,
+  topBar,
+  DoneButton,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -135,6 +137,7 @@ const SingleDatePicker = ({
           dateFormat={dateFormat}
           onFocus={onDateInputFocus}
           isSingle
+          topBar={topBar}
         />
         <DialogWrapper isMobile={isMobile}>
           <Dialog
@@ -157,6 +160,8 @@ const SingleDatePicker = ({
             isMobile={isMobile}
             highlightToday={highlightToday}
             isSingle
+            topBar={topBar}
+            DoneButton={DoneButton}
           />
         </DialogWrapper>
       </div>
@@ -177,6 +182,8 @@ SingleDatePicker.propTypes = {
   dateFormat: PropTypes.string,
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
+  topBar: PropTypes.node,
+  DoneButton: PropTypes.elementType,
 };
 
 SingleDatePicker.defaultProps = {
@@ -192,6 +199,8 @@ SingleDatePicker.defaultProps = {
   dateFormat: '',
   monthFormat: '',
   highlightToday: false,
+  topBar: null,
+  DoneButton: null,
 };
 
 export default SingleDatePicker;

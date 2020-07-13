@@ -30,6 +30,7 @@ const Dialog = ({
   isMobile,
   highlightToday,
   topBar,
+  DoneButton,
 }) => {
   const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
@@ -57,7 +58,7 @@ const Dialog = ({
   return (
     <div
       ref={containerRef}
-      className={cx('dialog-date-picker', {
+      className={cx("dialog-date-picker", {
         open: isOpen,
         hide: !isOpen && hideAnimation,
       })}
@@ -94,46 +95,53 @@ const Dialog = ({
         </button>
       </div>
       <div className="dialog-content">
-        {isMobile
-          ? (
-            <DialogContentMobile
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              monthFormat={monthFormat}
-              isOpen={isOpen}
-              isSingle={isSingle}
-              highlightToday={highlightToday}
-            />
-          )
-          : (
-            <DialogContentDesktop
-              fromDate={fromDate}
-              toDate={toDate}
-              hoverDate={hoverDate}
-              onSelectDate={onSelectDate}
-              onHoverDate={onHoverDate}
-              startWeekDay={startWeekDay}
-              minDate={minDate}
-              maxDate={maxDate}
-              dateFormat={dateFormat}
-              monthFormat={monthFormat}
-              isSingle={isSingle}
-              isOpen={isOpen}
-              dateChanged={dateChanged}
-              highlightToday={highlightToday}
-            />
-          )}
+        {isMobile ? (
+          <DialogContentMobile
+            fromDate={fromDate}
+            toDate={toDate}
+            hoverDate={hoverDate}
+            onSelectDate={onSelectDate}
+            startWeekDay={startWeekDay}
+            minDate={minDate}
+            maxDate={maxDate}
+            dateFormat={dateFormat}
+            monthFormat={monthFormat}
+            isOpen={isOpen}
+            isSingle={isSingle}
+            highlightToday={highlightToday}
+          />
+        ) : (
+          <DialogContentDesktop
+            fromDate={fromDate}
+            toDate={toDate}
+            hoverDate={hoverDate}
+            onSelectDate={onSelectDate}
+            onHoverDate={onHoverDate}
+            startWeekDay={startWeekDay}
+            minDate={minDate}
+            maxDate={maxDate}
+            dateFormat={dateFormat}
+            monthFormat={monthFormat}
+            isSingle={isSingle}
+            isOpen={isOpen}
+            dateChanged={dateChanged}
+            highlightToday={highlightToday}
+          />
+        )}
       </div>
       <div className="dialog-footer">
-        <button type="button" className="submit-button" onClick={toggleDialog} tabIndex="0">
-          Done
-        </button>
+        {DoneButton ? (
+          <DoneButton onClick={toggleDialog} />
+        ) : (
+          <button
+            type="button"
+            className="submit-button"
+            onClick={toggleDialog}
+            tabIndex="0"
+          >
+            Done
+          </button>
+        )}
         <button
           type="button"
           className="btn-outline reset-button mobile"
@@ -169,6 +177,7 @@ Dialog.propTypes = {
   isMobile: PropTypes.bool,
   highlightToday: PropTypes.bool,
   topBar: PropTypes.node,
+  DoneButton: PropTypes.elementType,
 };
 
 Dialog.defaultProps = {
@@ -194,6 +203,7 @@ Dialog.defaultProps = {
   isMobile: false,
   highlightToday: false,
   topBar: null,
+  DoneButton: null,
 };
 
 export default Dialog;

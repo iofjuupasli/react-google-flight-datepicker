@@ -26,6 +26,7 @@ const RangeDatePicker = ({
   monthFormat,
   highlightToday,
   topBar,
+  DoneButton,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -214,6 +215,7 @@ const RangeDatePicker = ({
             isMobile={isMobile}
             highlightToday={highlightToday}
             topBar={topBar}
+            DoneButton={DoneButton}
           />
         </DialogWrapper>
       </div>
@@ -237,6 +239,7 @@ RangeDatePicker.propTypes = {
   monthFormat: PropTypes.string,
   highlightToday: PropTypes.bool,
   topBar: PropTypes.node,
+  DoneButton: PropTypes.elementType,
 };
 
 RangeDatePicker.defaultProps = {
@@ -255,6 +258,7 @@ RangeDatePicker.defaultProps = {
   monthFormat: '',
   highlightToday: false,
   topBar: null,
+  DoneButton: null,
 };
 
 export default RangeDatePicker;
