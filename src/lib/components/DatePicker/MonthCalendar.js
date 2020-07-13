@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
+import { parseISO, format } from 'date-fns';
 
 import Week from './Week';
 import { getMonthInfo, getWeekDay } from '../../helpers';
@@ -68,9 +68,7 @@ const MonthCalendar = ({
       data-month-index={month + 1}
     >
       <div className="month-name">
-        {monthFormat
-          ? dayjs(`${year}-${month + 1}-1`).format(monthFormat)
-          : dayjs(`${year}-${month + 1}-1`).format('MMMM - YYYY')}
+        {format(parseISO(`${year}-${(month + 1).toString().padStart(2, '0')}-01`), monthFormat || 'MMMM - yyyy')}
       </div>
       <div className="weekdays">{generateWeekDay()}</div>
       <div className="week-container">

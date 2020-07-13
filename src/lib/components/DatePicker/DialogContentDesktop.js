@@ -1,7 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
+import {
+  isBefore,
+  isAfter,
+  subMonths,
+  addMonths,
+  startOfMonth,
+  setDate,
+  getDate,
+  addDays,
+  differenceInMonths,
+  getMonth,
+  getYear,
+} from 'date-fns';
 
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
@@ -25,30 +37,30 @@ const DialogContentDesktop = ({
   const containerRef = useRef();
   const [translateAmount, setTranslateAmount] = useState(0);
   const [monthArray, setMonthArray] = useState([]);
-  const [focusDate, setFocusDate] = useState(dayjs());
+  const [focusDate, setFocusDate] = useState(new Date());
   const [disablePrev, setDisablePrev] = useState(false);
   const [disableNext, setDisableNext] = useState(false);
 
   function getArrayMonth(date) {
-    const prevMonth = dayjs(date).subtract(1, 'month');
-    const nextMonth = dayjs(date).add(1, 'month');
-    const futureMonth = dayjs(date).add(2, 'month');
+    const prevMonth = subMonths(date, 1);
+    const nextMonth = addMonths(date, 1);
+    const futureMonth = addMonths(date, 2);
 
     return [prevMonth, focusDate, nextMonth, futureMonth];
   }
 
   useEffect(() => {
-    setFocusDate(fromDate || dayjs());
+    setFocusDate(fromDate || new Date());
   }, [isOpen]);
 
   useEffect(() => {
-    if (minDate && focusDate.isBefore(dayjs(minDate).add(1, 'month'), 'month')) {
+    if (minDate && isBefore(startOfMonth(focusDate), startOfMonth(addMonths(minDate, 1)))) {
       setDisablePrev(true);
     } else {
       setDisablePrev(false);
     }
 
-    if (maxDate && focusDate.isAfter(dayjs(maxDate).subtract(2, 'month'), 'month')) {
+    if (maxDate && isAfter(startOfMonth(focusDate), startOfMonth(subMonths(maxDate, 2)))) {
       setDisableNext(true);
     } else {
       setDisableNext(false);
@@ -59,19 +71,19 @@ const DialogContentDesktop = ({
   }, [focusDate]);
 
   function increaseFocusDate(date) {
-    if (dayjs.isDayjs(date)) {
+    if (date instanceof Date) {
       setFocusDate(date);
     } else {
-      const nextDate = dayjs(focusDate).add(1, 'month');
+      const nextDate = addMonths(focusDate, 1);
       setFocusDate(nextDate);
     }
   }
 
   function decreaseFocusDate(date) {
-    if (dayjs.isDayjs(date)) {
+    if (date instanceof Date) {
       setFocusDate(date);
     } else {
-      const prevDate = dayjs(focusDate).subtract(1, 'month');
+      const prevDate = subMonths(focusDate, 1);
       setFocusDate(prevDate);
     }
   }
@@ -98,11 +110,11 @@ const DialogContentDesktop = ({
 
   useEffect(() => {
     if (dateChanged) {
-      if (dayjs(dateChanged).isBefore(focusDate, 'month', true)) {
+      if (isBefore(startOfMonth(dateChanged), startOfMonth(focusDate))) {
         decreaseCurrentMonth(dateChanged);
       }
-      if (dayjs(dateChanged).isAfter(focusDate.add(1, 'month'), 'month', true)) {
-        increaseCurrentMonth(dayjs(dateChanged).subtract(1, 'month'));
+      if (isAfter(startOfMonth(dateChanged), startOfMonth(addMonths(focusDate, 1)))) {
+        increaseCurrentMonth(subMonths(dateChanged, 1));
       }
     }
   }, [dateChanged]);
@@ -153,8 +165,8 @@ const DialogContentDesktop = ({
     const calendarContainer = e.target.parentElement.parentElement.parentElement.parentElement;
     const dayIndex = parseInt(e.target.getAttribute('data-day-index'));
     const dateValue = parseInt(e.target.getAttribute('data-date-value'));
-    const date = dayjs(dateValue);
-    const lastDateOfMonth = date.add(1, 'month').set('date', 0).get('date');
+    const date = new Date(dateValue);
+    const lastDateOfMonth = getDate(setDate(addMonths(date, 1), 0));
     let nextDayIndex = -1;
     let increaseAmount = 0;
 
@@ -199,24 +211,24 @@ const DialogContentDesktop = ({
         dayElement.focus();
       }
     } else {
-      const nextDate = date.add(increaseAmount, 'day');
+      const nextDate = addDays(date, increaseAmount);
 
       if (
         increaseAmount > 0
-        && Math.ceil(nextDate.diff(focusDate, 'month', true)) > 1
+        && isAfter(startOfMonth(nextDate), startOfMonth(focusDate))
       ) {
-        if (maxDate && dayjs(nextDate).isAfter(maxDate, 'month')) return false;
+        if (maxDate && isAfter(startOfMonth(nextDate), startOfMonth(maxDate))) return false;
         increaseCurrentMonth();
       } else if (
         increaseAmount < 0
-        && Math.ceil(focusDate.diff(nextDate, 'month', true)) > 0
+        && isAfter(startOfMonth(focusDate), startOfMonth(nextDate))
       ) {
-        if (minDate && dayjs(nextDate).isBefore(minDate, 'month')) return false;
+        if (minDate && isBefore(startOfMonth(nextDate), startOfMonth(minDate))) return false;
         decreaseCurrentMonth();
       }
       setTimeout(() => {
-        const query = `.month-calendar[data-month-index="${nextDate.get('month')
-          + 1}"] .day[data-day-index="${nextDate.get('date')}"]`;
+        const query = `.month-calendar[data-month-index="${getMonth(nextDate)
+          + 1}"] .day[data-day-index="${getDate(nextDate)}"]`;
         const dayElement = calendarContainer.querySelector(query);
         if (dayElement) {
           dayElement.focus();
@@ -234,8 +246,8 @@ const DialogContentDesktop = ({
         key={dateIndex}
         hidden={dateIndex === 0 && translateAmount <= 0}
         isAnimating={dateIndex === 0 && translateAmount > 0}
-        month={dayjs(date).get('month')}
-        year={dayjs(date).get('year')}
+        month={getMonth(date)}
+        year={getYear(date)}
         onSelectDate={onSelectDate}
         onHoverDate={onHoverDate}
         fromDate={fromDate}

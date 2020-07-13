@@ -21,7 +21,7 @@
     position: relative;
     border-radius: 4px;
     background: white;
-    padding: 6px;
+    padding: 8px 8px 8px 24px;
 
     &.disabled {
       opacity: 0.6;
@@ -30,7 +30,7 @@
   }
 
   .date-picker-input {
-    width: 100%;
+    width: 390px;
     display: flex;
     justify-content: space-between;
     border: 1px solid #dadce0;
@@ -201,11 +201,10 @@
   }
 
   .dialog-header .date-picker-input {
-    height: 48px;
-    width: 60%;
+    height: 56px;
+    width: 390px;
   }
 
-  .date:focus,
   .date.is-focus {
     background-color: #f4f8ff;
 

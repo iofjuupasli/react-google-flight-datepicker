@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
+import {
+  parseISO,
+  isBefore,
+  isAfter,
+  startOfDay,
+  isSameDay,
+} from 'date-fns';
 
 import Day from './Day';
 
@@ -25,28 +31,28 @@ const Week = ({
   function generateDay() {
     return [...Array(week.days).keys()].map(index => {
       const dateIndex = index + week.start;
-      const dateValue = dayjs(`${year}-${month + 1}-${dateIndex}`);
-      const disabled = (minDate && dateValue.isBefore(minDate, 'date'))
-        || (maxDate && dateValue.isAfter(maxDate, 'date'));
-      const selected = dateValue.isSame(fromDate, 'date') || dateValue.isSame(toDate, 'date');
+      const dateValue = parseISO(`${year}-${(month + 1).toString().padStart(2, '0')}-${dateIndex.toString().padStart(2, '0')}`);
+      const disabled = (minDate && isBefore(startOfDay(dateValue), startOfDay(minDate)))
+        || (maxDate && isAfter(startOfDay(dateValue), startOfDay(maxDate)));
+      const selected = isSameDay(dateValue, fromDate) || isSameDay(dateValue, toDate);
       let hovered = false;
-      const highlight = highlightToday && dateValue.isSame(new Date(), 'date');
+      const highlight = highlightToday && isSameDay(dateValue, new Date());
 
-      if (fromDate && !fromDate.isSame(toDate, 'date') && !isSingle) {
-        if (toDate && !fromDate.isAfter(dateValue, 'date') && !toDate.isBefore(dateValue, 'date')) {
+      if (fromDate && !isSameDay(fromDate, toDate) && !isSingle) {
+        if (toDate && !isAfter(startOfDay(fromDate), startOfDay(dateValue)) && !isBefore(startOfDay(toDate), startOfDay(dateValue))) {
           hovered = true;
         }
         if (
           !toDate
-          && !dateValue.isBefore(fromDate, 'date') && !(hoverDate && hoverDate.isBefore(dateValue, 'date'))
-          && fromDate.isBefore(hoverDate, 'date')
+          && !isBefore(startOfDay(dateValue), startOfDay(fromDate)) && !(hoverDate && isBefore(startOfDay(hoverDate), startOfDay(dateValue)))
+          && isBefore(startOfDay(fromDate), startOfDay(hoverDate))
         ) {
           hovered = true;
         }
       }
 
       let isEndDate = false;
-      if (dateValue.isSame(toDate, 'date') || (!toDate && dateValue.isSame(hoverDate, 'date'))) {
+      if (isSameDay(dateValue, toDate) || (!toDate && isSameDay(dateValue, hoverDate))) {
         isEndDate = true;
       }
 

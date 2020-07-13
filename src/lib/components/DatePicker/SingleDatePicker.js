@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
+import { isBefore, isAfter, startOfDay } from 'date-fns';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
@@ -50,7 +50,7 @@ const SingleDatePicker = ({
 
   useEffect(() => {
     if (startDate) {
-      setFromDate(dayjs(startDate));
+      setFromDate(startDate);
     }
   }, [startDate]);
 
@@ -67,7 +67,7 @@ const SingleDatePicker = ({
   useEffect(() => {
     setIsFirstTime(true);
     if (startDate) {
-      setFromDate(dayjs(startDate));
+      setFromDate(startDate);
     }
 
     document.addEventListener('click', handleDocumentClick);
@@ -77,7 +77,7 @@ const SingleDatePicker = ({
 
   useEffect(() => {
     if (isFirstTime) {
-      const startDate = fromDate ? dayjs(fromDate) : null;
+      const startDate = fromDate || null;
       onChange(startDate);
     }
   }, [fromDate]);
@@ -97,7 +97,7 @@ const SingleDatePicker = ({
   }
 
   function onSelectDate(date) {
-    if ((minDate && dayjs(minDate).isAfter(date, 'date')) || (maxDate && dayjs(maxDate).isBefore(date, 'date'))) {
+    if ((minDate && isAfter(startOfDay(minDate), startOfDay(date))) || (maxDate && isBefore(startOfDay(maxDate), startOfDay(date)))) {
       return;
     }
     setFromDate(date);

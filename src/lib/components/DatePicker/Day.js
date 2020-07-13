@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { getTime } from 'date-fns';
 
 const Day = ({
   dateIndex,
@@ -38,7 +39,7 @@ const Day = ({
       role="button"
       tabIndex="-1"
       data-day-index={dateIndex}
-      data-date-value={dateValue}
+      data-date-value={getTime(dateValue)}
     >
       {hovered
         && !(isEndDay && dateIndex === totalDay)

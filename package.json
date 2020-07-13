@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "dayjs": "^1.8.22",
+    "date-fns": "^2.14.0",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5"
   },

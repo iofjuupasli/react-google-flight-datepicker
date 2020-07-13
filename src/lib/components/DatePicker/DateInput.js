@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import {
+  addDays,
+  subDays,
+  startOfDay,
+  isAfter,
+  isBefore,
+  format,
+  parse,
+  isValid,
+  getYear,
+} from 'date-fns';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
-
-dayjs.extend(customParseFormat);
 
 const DateInput = ({
   handleClickDateInput,
@@ -32,18 +39,18 @@ const DateInput = ({
 
   useEffect(() => {
     if (value) {
-      const text = value.format(dateFormat);
+      const text = format(value, dateFormat);
       setFormattedDate(text);
 
-      if ((minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date'))
-        || (name === 'END_DATE' && value.isBefore(fromDate.add(1, 'day'), 'date'))
+      if ((minDate && isAfter(startOfDay(addDays(minDate, 1)), startOfDay(value)))
+        || (name === 'END_DATE' && isBefore(startOfDay(value), startOfDay(addDays(fromDate, 1))))
       ) {
         setDisablePrev(true);
       } else {
         setDisablePrev(false);
       }
 
-      if (maxDate && dayjs(maxDate).subtract(1, 'day').isBefore(value, 'date')) {
+      if (maxDate && isBefore(startOfDay(subDays(maxDate, 1)), startOfDay(value))) {
         setDisableNext(true);
       } else {
         setDisableNext(false);
@@ -55,12 +62,12 @@ const DateInput = ({
 
   function prevDate(e) {
     e.stopPropagation();
-    handleChangeDate(dayjs(value).subtract(1, 'day'));
+    handleChangeDate(subDays(value, 1));
   }
 
   function nextDate(e) {
     e.stopPropagation();
-    handleChangeDate(dayjs(value).add(1, 'day'));
+    handleChangeDate(addDays(value, 1));
   }
 
   function onDateInputFocus() {
@@ -84,8 +91,8 @@ const DateInput = ({
         placeholder={placeholder}
         value={formattedDate || ''}
         onChange={event => {
-          const parsed = dayjs(event.currentTarget.value, dateFormat);
-          if (parsed.isValid()) {
+          const parsed = parse(event.currentTarget.value, dateFormat, new Date());
+          if (getYear(parsed) >= 2000 && isValid(parsed)) {
             handleChangeDate(parsed);
           } else {
             setFormattedDate(event.currentTarget.value);
@@ -144,7 +151,7 @@ DateInput.defaultProps = {
   value: null,
   placeholder: null,
   handleChangeDate: () => {},
-  dateFormat: 'ddd, DD MMM',
+  dateFormat: 'dd/MM/yyyy',
   isSingle: false,
   onFocus: () => {},
   name: '',
@@ -152,7 +159,6 @@ DateInput.defaultProps = {
   fromDate: null,
   minDate: null,
   maxDate: null,
-
 };
 
 export default DateInput;

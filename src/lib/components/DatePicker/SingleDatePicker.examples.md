@@ -16,7 +16,7 @@ import { SingleDatePicker } from '@iofjuupasli/react-google-flight-datepicker';
       // startWeekDay="sunday"
       minDate={new Date(2019, 11, 10)}
       maxDate={new Date('2020-11-25')}
-      dateFormat="DD/MM/YYYY"
+      dateFormat="dd/MM/yyyy"
       // monthFormat="MMM --- YY"
     />
   </div>

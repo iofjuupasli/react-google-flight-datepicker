@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import {
+  getYear,
+  getMonth,
+  differenceInMonths,
+  parseISO,
+} from 'date-fns';
 import { VariableSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -21,24 +26,24 @@ const DialogContentMobile = ({
   highlightToday,
 }) => {
   const [rowCount, setRowCount] = useState(2400);
-  const minYear = minDate ? dayjs(minDate).year() : 1900;
-  const minMonth = minDate ? dayjs(minDate).month() : 0;
+  const minYear = minDate ? getYear(minDate) : 1900;
+  const minMonth = minDate ? getMonth(minDate) : 0;
   const listRef = useRef();
 
   useEffect(() => {
     if (maxDate) {
-      const _minDate = minDate ? dayjs(minDate) : dayjs('1900-01-01');
-      setRowCount(dayjs(maxDate).diff(_minDate, 'month') + 1);
+      const _minDate = minDate || parseISO('1900-01-01');
+      setRowCount(differenceInMonths(maxDate, _minDate) + 1);
     }
   }, []);
 
   useEffect(() => {
     if (listRef.current && isOpen) {
-      const date = fromDate ? dayjs(fromDate) : dayjs();
-      let monthDiff = date.diff(dayjs('1900-01-01'), 'month');
+      const date = fromDate || new Date();
+      let monthDiff = differenceInMonths(date, parseISO('1900-01-01'));
 
       if (minDate) {
-        monthDiff = date.diff(dayjs(minDate), 'month');
+        monthDiff = differenceInMonths(date, minDate);
       }
 
       listRef.current.scrollToItem(monthDiff + 1, 'smart');

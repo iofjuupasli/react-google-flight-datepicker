@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import dayjs from 'dayjs';
+import { isBefore, isAfter, startOfDay } from 'date-fns';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
@@ -71,17 +71,17 @@ const RangeDatePicker = ({
 
   useEffect(() => {
     if (startDate) {
-      setFromDate(dayjs(startDate));
+      setFromDate(startDate);
     }
     if (endDate) {
-      setToDate(dayjs(endDate));
+      setToDate(endDate);
     }
   }, [startDate, endDate]);
 
   useEffect(() => {
     if (isFirstTime) {
-      const startDate = fromDate ? dayjs(fromDate) : null;
-      const endDate = toDate ? dayjs(toDate) : null;
+      const startDate = fromDate || null;
+      const endDate = toDate || null;
       onChange(startDate, endDate);
     }
   }, [fromDate, toDate]);
@@ -115,9 +115,9 @@ const RangeDatePicker = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && date.isBefore(fromDate, 'date'))) {
+      if (inputFocus === 'from' || (fromDate && isBefore(startOfDay(date), startOfDay(fromDate)))) {
         setFromDate(date);
-        if (toDate && date.isAfter(toDate, 'date')) {
+        if (toDate && isAfter(startOfDay(date), startOfDay(toDate))) {
           setToDate(null);
         }
         setInputFocus('to');
@@ -128,7 +128,7 @@ const RangeDatePicker = ({
     } else {
       setFromDate(date);
       setInputFocus('to');
-      if (toDate && date.isAfter(toDate, 'date')) {
+      if (toDate && isAfter(startOfDay(date), startOfDay(toDate))) {
         setToDate(null);
       }
     }
@@ -146,7 +146,7 @@ const RangeDatePicker = ({
   }
 
   function handleChangeDate(value, input) {
-    if ((minDate && dayjs(minDate).isAfter(value, 'date')) || (maxDate && dayjs(maxDate).isBefore(value, 'date'))) {
+    if ((minDate && isAfter(startOfDay(minDate), startOfDay(value))) || (maxDate && isBefore(startOfDay(maxDate), startOfDay(value)))) {
       return;
     }
 
