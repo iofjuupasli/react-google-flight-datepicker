@@ -29,6 +29,7 @@ const Dialog = ({
   isSingle,
   isMobile,
   highlightToday,
+  topBar,
 }) => {
   const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
@@ -82,6 +83,7 @@ const Dialog = ({
           dateFormat={dateFormat}
           isSingle={isSingle}
           nonFocusable={!isOpen}
+          topBar={topBar}
         />
         <button
           type="button"
@@ -166,6 +168,7 @@ Dialog.propTypes = {
   isSingle: PropTypes.bool,
   isMobile: PropTypes.bool,
   highlightToday: PropTypes.bool,
+  topBar: PropTypes.node,
 };
 
 Dialog.defaultProps = {
@@ -190,6 +193,7 @@ Dialog.defaultProps = {
   isSingle: false,
   isMobile: false,
   highlightToday: false,
+  topBar: null,
 };
 
 export default Dialog;

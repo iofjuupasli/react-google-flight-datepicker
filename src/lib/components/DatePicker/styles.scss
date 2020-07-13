@@ -5,8 +5,10 @@
     box-sizing: border-box;
   }
 
-  .date-picker-demo {
-    width: 400px;
+  .date-picker-input-container {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
   }
 
   .btn-outline {
@@ -196,7 +198,7 @@
   .dialog-header {
     padding: 8px 8px 8px 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -241,6 +243,7 @@
     border: none;
     color: #5f6368;
     min-width: 64px;
+    margin-left: auto;
 
     &:hover {
       background-color: #fafafa;

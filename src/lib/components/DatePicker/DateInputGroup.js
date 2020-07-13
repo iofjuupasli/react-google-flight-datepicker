@@ -19,6 +19,7 @@ const DateInputGroup = ({
   isSingle,
   onFocus,
   nonFocusable,
+  topBar,
 }) => {
   function handleClickFromInput() {
     handleClickDateInput('from');
@@ -37,44 +38,47 @@ const DateInputGroup = ({
   }
 
   return (
-    <div className="date-picker-input">
-      {showCalendarIcon
-        && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
-      <div className="date-picker-date-group">
-        <DateInput
-          handleClickDateInput={handleClickFromInput}
-          showIcon
-          tabIndex={nonFocusable ? '-1' : '0'}
-          isFocus={inputFocus === 'from'}
-          value={fromDate}
-          placeholder={startDatePlaceholder}
-          handleChangeDate={handleChangeFromDate}
-          dateFormat={dateFormat}
-          isSingle={isSingle}
-          name="START_DATE"
-          onFocus={onFocus}
-          nonFocusable={nonFocusable}
-          minDate={minDate}
-          maxDate={maxDate}
-        />
-        {!isSingle
-        && (
+    <div className="date-picker-input-container">
+      <div className="date-picker-input">
+        {showCalendarIcon
+          && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
+        <div className="date-picker-date-group">
           <DateInput
-            handleClickDateInput={handleClickToInput}
-            tabIndex="0"
-            isFocus={inputFocus === 'to'}
-            value={toDate}
-            placeholder={endDatePlaceholder}
-            handleChangeDate={handleChangeToDate}
+            handleClickDateInput={handleClickFromInput}
+            showIcon
+            tabIndex={nonFocusable ? '-1' : '0'}
+            isFocus={inputFocus === 'from'}
+            value={fromDate}
+            placeholder={startDatePlaceholder}
+            handleChangeDate={handleChangeFromDate}
             dateFormat={dateFormat}
-            name="END_DATE"
+            isSingle={isSingle}
+            name="START_DATE"
+            onFocus={onFocus}
             nonFocusable={nonFocusable}
             minDate={minDate}
             maxDate={maxDate}
-            fromDate={fromDate}
           />
-        )}
+          {!isSingle
+          && (
+            <DateInput
+              handleClickDateInput={handleClickToInput}
+              tabIndex="0"
+              isFocus={inputFocus === 'to'}
+              value={toDate}
+              placeholder={endDatePlaceholder}
+              handleChangeDate={handleChangeToDate}
+              dateFormat={dateFormat}
+              name="END_DATE"
+              nonFocusable={nonFocusable}
+              minDate={minDate}
+              maxDate={maxDate}
+              fromDate={fromDate}
+            />
+          )}
+        </div>
       </div>
+      {topBar}
     </div>
   );
 };
@@ -94,6 +98,7 @@ DateInputGroup.propTypes = {
   isSingle: PropTypes.bool,
   onFocus: PropTypes.func,
   nonFocusable: PropTypes.bool,
+  topBar: PropTypes.node,
 };
 
 DateInputGroup.defaultProps = {
@@ -111,6 +116,7 @@ DateInputGroup.defaultProps = {
   isSingle: false,
   onFocus: () => {},
   nonFocusable: false,
+  topBar: null,
 };
 
 export default DateInputGroup;

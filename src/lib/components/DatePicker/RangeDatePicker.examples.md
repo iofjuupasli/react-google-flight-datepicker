@@ -18,6 +18,7 @@ import { RangeDatePicker } from '@iofjuupasli/react-google-flight-datepicker';
       // maxDate={new Date('2020-07-25')}
       dateFormat="dd/MM/yyyy"
       // monthFormat="MMM --- YY"
+      topBar={<div>Test</div>}
     />
   </div>
 </div>
