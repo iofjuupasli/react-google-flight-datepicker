@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import dayjs from 'dayjs';
-
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
+
+dayjs.extend(customParseFormat);
 
 const DateInput = ({
   handleClickDateInput,
@@ -30,10 +32,7 @@ const DateInput = ({
 
   useEffect(() => {
     if (value) {
-      let text = value.format('ddd, DD MMM');
-      if (dateFormat) {
-        text = value.format(dateFormat);
-      }
+      const text = value.format(dateFormat);
       setFormattedDate(text);
 
       if ((minDate && dayjs(minDate).add(1, 'day').isAfter(value, 'date'))
@@ -56,12 +55,12 @@ const DateInput = ({
 
   function prevDate(e) {
     e.stopPropagation();
-    handleChangeDate('prev', value);
+    handleChangeDate(dayjs(value).subtract(1, 'day'));
   }
 
   function nextDate(e) {
     e.stopPropagation();
-    handleChangeDate('next', value);
+    handleChangeDate(dayjs(value).add(1, 'day'));
   }
 
   function onDateInputFocus() {
@@ -80,10 +79,19 @@ const DateInput = ({
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
       )}
-
-      <div className="selected-date">
-        {formattedDate || <div className="date-placeholder">{placeholder}</div>}
-      </div>
+      <input
+        className="selected-date"
+        placeholder={placeholder}
+        value={formattedDate || ''}
+        onChange={event => {
+          const parsed = dayjs(event.currentTarget.value, dateFormat);
+          if (parsed.isValid()) {
+            handleChangeDate(parsed);
+          } else {
+            setFormattedDate(event.currentTarget.value);
+          }
+        }}
+      />
       {formattedDate && (
         <div className="change-date-group">
           <button
@@ -136,7 +144,7 @@ DateInput.defaultProps = {
   value: null,
   placeholder: null,
   handleChangeDate: () => {},
-  dateFormat: '',
+  dateFormat: 'ddd, DD MMM',
   isSingle: false,
   onFocus: () => {},
   name: '',

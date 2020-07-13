@@ -86,10 +86,14 @@
   }
 
   .selected-date {
+    border: none;
+    outline: none;
+    height: 24px;
+    background: none;
+    width: 0;
     display: flex;
     flex: 1 1 0px;
     align-items: center;
-    height: 100%;
     font-size: 0.9rem;
     line-height: normal;
     overflow: hidden;
@@ -198,7 +202,7 @@
 
   .dialog-header .date-picker-input {
     height: 48px;
-    width: 50%;
+    width: 60%;
   }
 
   .date:focus,

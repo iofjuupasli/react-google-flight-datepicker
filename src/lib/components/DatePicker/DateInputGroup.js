@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 
 import DateInput from './DateInput';
 import CalendarIcon from '../../assets/svg/calendar.svg';
@@ -29,21 +28,11 @@ const DateInputGroup = ({
     handleClickDateInput('to');
   }
 
-  function getDateFromValue(action, value) {
-    if (action === 'prev') {
-      return dayjs(value).subtract(1, 'day');
-    }
-
-    return dayjs(value).add(1, 'day');
-  }
-
-  function handleChangeFromDate(action, value) {
-    const date = getDateFromValue(action, value);
+  function handleChangeFromDate(date) {
     handleChangeDate(date, 'from');
   }
 
-  function handleChangeToDate(action, value) {
-    const date = getDateFromValue(action, value);
+  function handleChangeToDate(date) {
     handleChangeDate(date, 'to');
   }
 
