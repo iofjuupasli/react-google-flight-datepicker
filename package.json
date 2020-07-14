@@ -1,6 +1,6 @@
 {
   "name": "@iofjuupasli/react-google-flight-datepicker",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
   "author": "David Tran, Leo Phan",
   "license": "MIT",
@@ -28,9 +28,11 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "css-element-queries": "^1.2.3",
     "date-fns": "^2.14.0",
     "react-virtualized-auto-sizer": "^1.0.2",
-    "react-window": "^1.8.5"
+    "react-window": "^1.8.5",
+    "tether": "^1.4.7"
   },
   "peerDependencies": {
     "react": "^16.8.4",

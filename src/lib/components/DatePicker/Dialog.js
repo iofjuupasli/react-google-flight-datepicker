@@ -47,11 +47,13 @@ const Dialog = ({
     }
     if (isOpen) {
       setTimeout(() => {
-        const startDateInput = containerRef.current.querySelector('#start-date-input-button');
-        if (startDateInput) {
-          startDateInput.focus();
+        if (containerRef.current) {
+          const startDateInput = containerRef.current.querySelector('#start-date-input-button');
+          if (startDateInput) {
+            startDateInput.focus();
+          }
         }
-      }, 50);
+      }, 100);
     }
   }, [isOpen]);
 

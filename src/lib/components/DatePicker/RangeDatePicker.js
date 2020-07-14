@@ -55,21 +55,8 @@ const RangeDatePicker = ({
     }
   }, []);
 
-  function handleDocumentClick(e) {
-    if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
-      && window.innerWidth > 500
-    ) {
-      onIsOpenChange(false);
-    }
-  }
-
   useEffect(() => {
     setIsFirstTime(true);
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
   useEffect(() => {
@@ -192,33 +179,37 @@ const RangeDatePicker = ({
           nonFocusable={isOpen}
           topBar={topBar}
         />
-        <DialogWrapper isMobile={isMobile}>
-          <Dialog
-            isOpen={isOpen}
-            toggleDialog={toggleDialog}
-            handleClickDateInput={handleClickDateInput}
-            inputFocus={inputFocus}
-            setInputFocus={setInputFocus}
-            onSelectDate={onSelectDate}
-            onHoverDate={onHoverDate}
-            fromDate={fromDate}
-            toDate={toDate}
-            hoverDate={hoverDate}
-            handleReset={handleReset}
-            handleChangeDate={handleChangeDate}
-            startDatePlaceholder={startDatePlaceholder}
-            endDatePlaceholder={endDatePlaceholder}
-            startWeekDay={startWeekDay}
-            minDate={minDate}
-            maxDate={maxDate}
-            dateFormat={dateFormat}
-            monthFormat={monthFormat}
-            isMobile={isMobile}
-            highlightToday={highlightToday}
-            topBar={topBar}
-            DoneButton={DoneButton}
-          />
-        </DialogWrapper>
+        {
+          isOpen && containerRef.current ? (
+            <DialogWrapper targetElement={containerRef.current} onClose={toggleDialog}>
+              <Dialog
+                isOpen={isOpen}
+                toggleDialog={toggleDialog}
+                handleClickDateInput={handleClickDateInput}
+                inputFocus={inputFocus}
+                setInputFocus={setInputFocus}
+                onSelectDate={onSelectDate}
+                onHoverDate={onHoverDate}
+                fromDate={fromDate}
+                toDate={toDate}
+                hoverDate={hoverDate}
+                handleReset={handleReset}
+                handleChangeDate={handleChangeDate}
+                startDatePlaceholder={startDatePlaceholder}
+                endDatePlaceholder={endDatePlaceholder}
+                startWeekDay={startWeekDay}
+                minDate={minDate}
+                maxDate={maxDate}
+                dateFormat={dateFormat}
+                monthFormat={monthFormat}
+                isMobile={isMobile}
+                highlightToday={highlightToday}
+                topBar={topBar}
+                DoneButton={DoneButton}
+              />
+            </DialogWrapper>
+          ) : null
+        }
       </div>
     </div>
   );

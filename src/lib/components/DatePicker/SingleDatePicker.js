@@ -57,25 +57,11 @@ const SingleDatePicker = ({
     }
   }, [startDate]);
 
-  function handleDocumentClick(e) {
-    if (
-      containerRef.current
-      && containerRef.current.contains(e.target) === false
-      && window.innerWidth > 500
-    ) {
-      onIsOpenChange(false);
-    }
-  }
-
   useEffect(() => {
     setIsFirstTime(true);
     if (startDate) {
       setFromDate(startDate);
     }
-
-    document.addEventListener('click', handleDocumentClick);
-
-    return () => document.removeEventListener('click', handleDocumentClick);
   }, []);
 
   useEffect(() => {
@@ -140,31 +126,35 @@ const SingleDatePicker = ({
           isSingle
           topBar={topBar}
         />
-        <DialogWrapper isMobile={isMobile}>
-          <Dialog
-            isOpen={isOpen}
-            toggleDialog={toggleDialog}
-            handleClickDateInput={handleClickDateInput}
-            inputFocus="from"
-            onSelectDate={onSelectDate}
-            onHoverDate={onHoverDate}
-            fromDate={fromDate}
-            hoverDate={hoverDate}
-            handleReset={handleReset}
-            handleChangeDate={onSelectDate}
-            startDatePlaceholder={startDatePlaceholder}
-            startWeekDay={startWeekDay}
-            minDate={minDate}
-            maxDate={maxDate}
-            dateFormat={dateFormat}
-            monthFormat={monthFormat}
-            isMobile={isMobile}
-            highlightToday={highlightToday}
-            isSingle
-            topBar={topBar}
-            DoneButton={DoneButton}
-          />
-        </DialogWrapper>
+        {
+          isOpen && containerRef.current ? (
+            <DialogWrapper targetElement={containerRef.current} onClose={toggleDialog}>
+              <Dialog
+                isOpen={isOpen}
+                toggleDialog={toggleDialog}
+                handleClickDateInput={handleClickDateInput}
+                inputFocus="from"
+                onSelectDate={onSelectDate}
+                onHoverDate={onHoverDate}
+                fromDate={fromDate}
+                hoverDate={hoverDate}
+                handleReset={handleReset}
+                handleChangeDate={onSelectDate}
+                startDatePlaceholder={startDatePlaceholder}
+                startWeekDay={startWeekDay}
+                minDate={minDate}
+                maxDate={maxDate}
+                dateFormat={dateFormat}
+                monthFormat={monthFormat}
+                isMobile={isMobile}
+                highlightToday={highlightToday}
+                isSingle
+                topBar={topBar}
+                DoneButton={DoneButton}
+              />
+            </DialogWrapper>
+          ) : null
+        }
       </div>
     </div>
   );

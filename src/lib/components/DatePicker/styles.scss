@@ -23,7 +23,7 @@
     position: relative;
     border-radius: 4px;
     background: white;
-    padding: 8px 8px 8px 24px;
+    padding: 8px 8px 8px 0;
 
     &.disabled {
       opacity: 0.6;
@@ -175,10 +175,6 @@
     box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3),
       0 4px 8px 3px rgba(60, 64, 67, 0.15);
     min-width: 200px;
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    z-index: 120;
     height: max-content;
     width: 770px;
     margin-bottom: 50px;
