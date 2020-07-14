@@ -16,8 +16,8 @@ declare module '@iofjuupasli/react-google-flight-datepicker' {
     dateFormat?: string;
     monthFormat?: string;
     highlightToday?: boolean;
-    topBar: React.ReactNode;
-    DoneButton: React.ElementType<{onClick: Function}>;
+    topBar?: React.ReactNode;
+    DoneButton?: React.ElementType<{onClick: Function}>;
   }
 
   export class RangeDatePicker extends React.Component<RangeDatePickerProps> { }
@@ -35,8 +35,8 @@ declare module '@iofjuupasli/react-google-flight-datepicker' {
     dateFormat?: string;
     monthFormat?: string;
     highlightToday?: boolean;
-    topBar: React.ReactNode;
-    DoneButton: React.ElementType<{onClick: Function}>;
+    topBar?: React.ReactNode;
+    DoneButton?: React.ElementType<{onClick: Function}>;
   }
 
   export class SingleDatePicker extends React.Component<SingleDatePickerProps> { }

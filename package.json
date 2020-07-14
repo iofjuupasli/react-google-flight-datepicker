@@ -1,12 +1,12 @@
 {
   "name": "@iofjuupasli/react-google-flight-datepicker",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
   "author": "David Tran, Leo Phan",
   "license": "MIT",
-  "homepage": "https://github.com/JSLancerTeam/react-google-flight-datepicker",
+  "homepage": "https://github.com/iofjuupasli/react-google-flight-datepicker",
   "main": "dist/index.js",
-  "types": "./src/lib/index.d.ts",
+  "types": "./index.d.ts",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
@@ -22,7 +22,7 @@
     "lint": "esw --ext .jsx --ext .js --color",
     "lint:fix": "yarn lint --fix",
     "prerelease": "yarn lint:fix && yarn build",
-    "release": "npm publish --public",
+    "release": "npm publish --access public",
     "predeploy": "yarn styleguide:build",
     "deploy": "gh-pages -d styleguide"
   },
@@ -94,7 +94,8 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "jest": {
     "roots": [
