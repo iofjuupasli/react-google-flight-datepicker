@@ -2,8 +2,8 @@ import * as React from 'react';
 
 declare module '@iofjuupasli/react-google-flight-datepicker' {
   export interface RangeDatePickerProps {
-    isOpen: bool;
-    onIsOpenChange: (isOpen: bool) => void;
+    isOpen: boolean;
+    onIsOpenChange: (isOpen: boolean) => void;
     startDate: Date;
     endDate: Date;
     startDatePlaceholder?: string;
@@ -25,8 +25,8 @@ declare module '@iofjuupasli/react-google-flight-datepicker' {
   export class RangeDatePicker extends React.Component<RangeDatePickerProps> { }
 
   export interface SingleDatePickerProps {
-    isOpen: bool;
-    onIsOpenChange: (isOpen: bool) => void;
+    isOpen: boolean;
+    onIsOpenChange: (isOpen: boolean) => void;
     startDate: Date;
     startDatePlaceholder?: string;
     className?: string;
