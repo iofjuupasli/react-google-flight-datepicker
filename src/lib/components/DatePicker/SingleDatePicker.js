@@ -11,6 +11,8 @@ import Dialog from './Dialog';
 import DialogWrapper from './DialogWrapper';
 
 const SingleDatePicker = ({
+  isOpen,
+  onIsOpenChange,
   startDate,
   startDatePlaceholder,
   className,
@@ -26,7 +28,6 @@ const SingleDatePicker = ({
   topBar,
   DoneButton,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [fromDate, setFromDate] = useState();
   const [hoverDate, setHoverDate] = useState();
@@ -62,7 +63,7 @@ const SingleDatePicker = ({
       && containerRef.current.contains(e.target) === false
       && window.innerWidth > 500
     ) {
-      setIsOpen(false);
+      onIsOpenChange(false);
     }
   }
 
@@ -85,14 +86,14 @@ const SingleDatePicker = ({
   }, [fromDate]);
 
   function toggleDialog() {
-    setIsOpen(!isOpen);
+    onIsOpenChange(!isOpen);
   }
 
   function handleClickDateInput() {
     if (disabled) return;
 
     if (!isOpen) {
-      setIsOpen(true);
+      onIsOpenChange(true);
     }
 
     onFocus('Start Date');
@@ -170,6 +171,8 @@ const SingleDatePicker = ({
 };
 
 SingleDatePicker.propTypes = {
+  isOpen: PropTypes.bool,
+  onIsOpenChange: PropTypes.func,
   startDate: PropTypes.instanceOf(Date),
   startDatePlaceholder: PropTypes.string,
   className: PropTypes.string,
@@ -187,6 +190,8 @@ SingleDatePicker.propTypes = {
 };
 
 SingleDatePicker.defaultProps = {
+  isOpen: false,
+  onIsOpenChange: () => {},
   startDate: null,
   className: '',
   disabled: false,

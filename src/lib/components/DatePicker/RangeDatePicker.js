@@ -11,6 +11,8 @@ import DialogWrapper from './DialogWrapper';
 import Dialog from './Dialog';
 
 const RangeDatePicker = ({
+  isOpen,
+  onIsOpenChange,
   startDate,
   endDate,
   startDatePlaceholder,
@@ -28,7 +30,6 @@ const RangeDatePicker = ({
   topBar,
   DoneButton,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
   const [inputFocus, setInputFocus] = useState('to');
   const [fromDate, setFromDate] = useState();
@@ -60,7 +61,7 @@ const RangeDatePicker = ({
       && containerRef.current.contains(e.target) === false
       && window.innerWidth > 500
     ) {
-      setIsOpen(false);
+      onIsOpenChange(false);
     }
   }
 
@@ -100,7 +101,7 @@ const RangeDatePicker = ({
   }, [inputFocus]);
 
   function toggleDialog() {
-    setIsOpen(!isOpen);
+    onIsOpenChange(!isOpen);
   }
 
   function handleClickDateInput(inputFocus) {
@@ -109,7 +110,7 @@ const RangeDatePicker = ({
     }
 
     if (!isOpen) {
-      setIsOpen(true);
+      onIsOpenChange(true);
     }
 
     setInputFocus(inputFocus);
@@ -224,6 +225,8 @@ const RangeDatePicker = ({
 };
 
 RangeDatePicker.propTypes = {
+  isOpen: PropTypes.bool,
+  onIsOpenChange: PropTypes.func,
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   startDatePlaceholder: PropTypes.string,
@@ -243,6 +246,8 @@ RangeDatePicker.propTypes = {
 };
 
 RangeDatePicker.defaultProps = {
+  isOpen: false,
+  onIsOpenChange: () => {},
   startDate: null,
   endDate: null,
   className: '',
