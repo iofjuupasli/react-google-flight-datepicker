@@ -18,6 +18,12 @@ module.exports = {
   },
   externals: {
     react: 'react',
+    classnames: 'classnames',
+    'css-element-queries': 'css-element-queries',
+    'date-fns': 'date-fns',
+    'react-virtualized-auto-sizer': 'react-virtualized-auto-sizer',
+    'react-window': 'react-window',
+    tether: 'tether',
     'react-dom': {
       root: 'ReactDOM',
       commonjs2: 'react-dom',
