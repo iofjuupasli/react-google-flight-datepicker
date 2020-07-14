@@ -2,13 +2,15 @@ import * as React from 'react';
 
 declare module '@iofjuupasli/react-google-flight-datepicker' {
   export interface RangeDatePickerProps {
-    startDate?: Date;
-    endDate?: Date;
+    isOpen: bool;
+    onIsOpenChange: (isOpen: bool) => void;
+    startDate: Date;
+    endDate: Date;
     startDatePlaceholder?: string;
     endDatePlaceholder?: string;
     className?: string;
     disabled?: boolean;
-    onChange?: (startDate: Date, endDate: Date) => void;
+    onChange: (startDate: Date, endDate: Date) => void;
     onFocus?: (input: 'Start Date' | 'End Date' | '') => void;
     startWeekDay?: 'monday' | 'sunday';
     minDate?: Date;
@@ -23,11 +25,13 @@ declare module '@iofjuupasli/react-google-flight-datepicker' {
   export class RangeDatePicker extends React.Component<RangeDatePickerProps> { }
 
   export interface SingleDatePickerProps {
-    startDate?: Date;
+    isOpen: bool;
+    onIsOpenChange: (isOpen: bool) => void;
+    startDate: Date;
     startDatePlaceholder?: string;
     className?: string;
     disabled?: boolean;
-    onChange?: (startDate: Date) => void;
+    onChange: (startDate: Date) => void;
     onFocus?: (input: 'Start Date') => void;
     startWeekDay?: 'monday' | 'sunday';
     minDate?: Date;
