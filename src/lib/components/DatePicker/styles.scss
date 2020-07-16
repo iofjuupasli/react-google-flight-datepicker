@@ -90,7 +90,8 @@
   .selected-date {
     border: none;
     outline: none;
-    height: 24px;
+    height: 100%;
+    box-sizing: border-box;
     background: none;
     width: 0;
     display: flex;
@@ -210,6 +211,24 @@
       content: '';
       margin: -1px;
       border: 2px solid #4e6ce4;
+      border-radius: 4px;
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+    }
+  }
+
+  .date.is-error {
+    background-color: #fde8e8;
+
+    &::after {
+      content: '';
+      margin: -1px;
+      border: 2px solid #f05252;
       border-radius: 4px;
       position: absolute;
       pointer-events: none;

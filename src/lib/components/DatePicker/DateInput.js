@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
@@ -12,9 +12,24 @@ import {
   isValid,
   getYear,
 } from 'date-fns';
+import { Rifm } from 'rifm';
 import CalendarIcon from '../../assets/svg/calendar.svg';
 import PrevIcon from '../../assets/svg/prev.svg';
 import NextIcon from '../../assets/svg/next.svg';
+
+const parseDigits = dateString => (dateString.match(/\d+/g) || []).join('');
+
+const formatDate = dateString => {
+  const digits = parseDigits(dateString);
+  const chars = digits.split('');
+
+  return chars
+    .reduce(
+      (r, v, index) => (index === 2 || index === 4 ? `${r}/${v}` : `${r}${v}`),
+      '',
+    )
+    .substr(0, 10);
+};
 
 const DateInput = ({
   handleClickDateInput,
@@ -33,6 +48,10 @@ const DateInput = ({
   minDate,
   maxDate,
 }) => {
+  const validate = value => isValid(value)
+      && getYear(value) >= 2000 && getYear(value) < 2100
+      && (!fromDate || !isAfter(fromDate, value));
+
   const [formattedDate, setFormattedDate] = useState(null);
   const [disablePrev, setDisablePrev] = useState(false);
   const [disableNext, setDisableNext] = useState(false);
@@ -74,31 +93,70 @@ const DateInput = ({
     if (onFocus) onFocus(name);
   }
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isFocus) {
+      const timeoutId = setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 100);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isFocus]);
+
+  const isError = formattedDate && !validate(parse(formattedDate, dateFormat, new Date()));
+
   return (
     <div
-      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle })}
+      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle, 'is-error': isError })}
       role="button"
       tabIndex={nonFocusable ? '-1' : tabIndex}
       onClick={handleClickDateInput}
-      onFocus={onDateInputFocus}
       id="start-date-input-button"
     >
       {showIcon && (
         <CalendarIcon className="icon-calendar" viewBox="0 0 24 24" />
       )}
-      <input
-        className="selected-date"
-        placeholder={placeholder}
+      <Rifm
+        accept={/\d+/g}
+        mask={(formattedDate || '').length >= 10}
+        format={dateString => {
+          const res = formatDate(dateString);
+          if (dateString.endsWith('/')) {
+            if (res.length === 2) {
+              return `${res}/`;
+            }
+            if (res.length === 5) {
+              return `${res}/`;
+            }
+          }
+
+          return res;
+        }}
+        append={v => (v.length === 2 || v.length === 5 ? `${v}/` : v)}
         value={formattedDate || ''}
-        onChange={event => {
-          const parsed = parse(event.currentTarget.value, dateFormat, new Date());
-          if (getYear(parsed) >= 2000 && isValid(parsed)) {
+        onChange={value => {
+          setFormattedDate(value);
+          const parsed = parse(value, dateFormat, new Date());
+          if (validate(parsed)) {
             handleChangeDate(parsed);
-          } else {
-            setFormattedDate(event.currentTarget.value);
           }
         }}
-      />
+      >
+        {({ value, onChange }) => (
+          <input
+            ref={inputRef}
+            className="selected-date"
+            placeholder={placeholder}
+            value={value}
+            onFocus={onDateInputFocus}
+            onChange={onChange}
+          />
+        )}
+      </Rifm>
       {formattedDate && (
         <div className="change-date-group">
           <button

@@ -23,7 +23,7 @@ export default class Popover extends React.Component {
     setTimeout(() => {
       document.addEventListener('click', this.onDocumentClick);
       getModalRoot().addEventListener('keydown', this.onDocumentKeyDown);
-    }, 0);
+    }, 500);
     if (this.props.pin && this.tether) {
       return;
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -32,7 +32,6 @@ const Dialog = ({
   topBar,
   DoneButton,
 }) => {
-  const containerRef = useRef();
   const [hideAnimation, setHideAnimation] = useState(false);
   const [dateChanged, setDateChanged] = useState();
 
@@ -45,21 +44,10 @@ const Dialog = ({
     if (isOpen && !hideAnimation) {
       setHideAnimation(true);
     }
-    if (isOpen) {
-      setTimeout(() => {
-        if (containerRef.current) {
-          const startDateInput = containerRef.current.querySelector('#start-date-input-button');
-          if (startDateInput) {
-            startDateInput.focus();
-          }
-        }
-      }, 100);
-    }
   }, [isOpen]);
 
   return (
     <div
-      ref={containerRef}
       className={cx('dialog-date-picker', {
         open: isOpen,
         hide: !isOpen && hideAnimation,
