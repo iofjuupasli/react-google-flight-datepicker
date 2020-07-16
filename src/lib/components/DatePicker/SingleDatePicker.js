@@ -128,7 +128,7 @@ const SingleDatePicker = ({
         />
         {
           isOpen && containerRef.current ? (
-            <DialogWrapper targetElement={containerRef.current} onClose={toggleDialog}>
+            <DialogWrapper isMobile={isMobile} targetElement={containerRef.current} onClose={toggleDialog}>
               <Dialog
                 isOpen={isOpen}
                 toggleDialog={toggleDialog}

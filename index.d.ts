@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-declare module '@iofjuupasli/react-google-flight-datepicker' {
+declare module '@outofaxis/react-google-flight-datepicker' {
   export interface RangeDatePickerProps {
     isOpen: boolean;
     onIsOpenChange: (isOpen: boolean) => void;

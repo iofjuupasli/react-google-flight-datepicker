@@ -38,7 +38,7 @@ const DialogContentMobile = ({
   }, []);
 
   useEffect(() => {
-    if (listRef.current && isOpen) {
+    if (isOpen) {
       const date = fromDate || new Date();
       let monthDiff = differenceInMonths(date, parseISO('1900-01-01'));
 
@@ -46,7 +46,13 @@ const DialogContentMobile = ({
         monthDiff = differenceInMonths(date, minDate);
       }
 
-      listRef.current.scrollToItem(monthDiff + 1, 'smart');
+      const timeoutId = setTimeout(() => {
+        if (listRef.current) {
+          listRef.current.scrollToItem(monthDiff + 1, 'smart');
+        }
+      }, 300);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [isOpen]);
 
