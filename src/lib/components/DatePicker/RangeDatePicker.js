@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { isBefore, isAfter, startOfDay } from 'date-fns';
 
+import { usePrevious } from '../../helpers/usePrevious';
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
 import DialogWrapper from './DialogWrapper';
@@ -156,6 +157,8 @@ const RangeDatePicker = ({
     handleClickDateInput('from');
   }
 
+  const isOpenPrevous = usePrevious(isOpen);
+
   return (
     <div className="react-google-flight-datepicker">
       <div
@@ -183,6 +186,7 @@ const RangeDatePicker = ({
           isOpen && containerRef.current ? (
             <DialogWrapper isMobile={isMobile} targetElement={containerRef.current} onClose={toggleDialog}>
               <Dialog
+                animateOpen={isOpenPrevous === false}
                 isOpen={isOpen}
                 toggleDialog={toggleDialog}
                 handleClickDateInput={handleClickDateInput}

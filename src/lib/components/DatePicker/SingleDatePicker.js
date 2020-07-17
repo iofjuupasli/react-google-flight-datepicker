@@ -4,6 +4,7 @@ import React, {
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { isBefore, isAfter, startOfDay } from 'date-fns';
+import { usePrevious } from '../../helpers/usePrevious';
 
 import './styles.scss';
 import DateInputGroup from './DateInputGroup';
@@ -105,6 +106,8 @@ const SingleDatePicker = ({
     handleClickDateInput();
   }
 
+  const isOpenPrevous = usePrevious(isOpen);
+
   return (
     <div className="react-google-flight-datepicker">
       <div
@@ -130,6 +133,7 @@ const SingleDatePicker = ({
           isOpen && containerRef.current ? (
             <DialogWrapper isMobile={isMobile} targetElement={containerRef.current} onClose={toggleDialog}>
               <Dialog
+                animateOpen={isOpenPrevous === false}
                 isOpen={isOpen}
                 toggleDialog={toggleDialog}
                 handleClickDateInput={handleClickDateInput}

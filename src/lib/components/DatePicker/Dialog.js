@@ -8,6 +8,7 @@ import DialogContentMobile from './DialogContentMobile';
 import DialogContentDesktop from './DialogContentDesktop';
 
 const Dialog = ({
+  animateOpen,
   toggleDialog,
   isOpen,
   fromDate,
@@ -49,7 +50,8 @@ const Dialog = ({
   return (
     <div
       className={cx('dialog-date-picker', {
-        open: isOpen,
+        'open-immediate': !animateOpen,
+        open: animateOpen,
         hide: !isOpen && hideAnimation,
       })}
     >
@@ -145,6 +147,7 @@ const Dialog = ({
 };
 
 Dialog.propTypes = {
+  animateOpen: PropTypes.bool,
   isOpen: PropTypes.bool,
   inputFocus: PropTypes.string,
   fromDate: PropTypes.instanceOf(Date),
@@ -171,6 +174,7 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
+  animateOpen: true,
   isOpen: false,
   inputFocus: null,
   fromDate: null,

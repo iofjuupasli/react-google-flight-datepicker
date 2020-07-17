@@ -187,6 +187,11 @@
       animation: showPopup 0.2s forwards;
     }
 
+    &.open-immediate {
+      transform: scale(1);
+      opacity: 1;
+    }
+
     &.hide {
       animation: hidePopup 0.2s forwards;
     }
