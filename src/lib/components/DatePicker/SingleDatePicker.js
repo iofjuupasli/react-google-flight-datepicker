@@ -12,6 +12,7 @@ import Dialog from './Dialog';
 import DialogWrapper from './DialogWrapper';
 
 const SingleDatePicker = ({
+  showCalendarIcon,
   isOpen,
   onIsOpenChange,
   startDate,
@@ -87,7 +88,10 @@ const SingleDatePicker = ({
   }
 
   function onSelectDate(date) {
-    if ((minDate && isAfter(startOfDay(minDate), startOfDay(date))) || (maxDate && isBefore(startOfDay(maxDate), startOfDay(date)))) {
+    if (
+      (minDate && isAfter(startOfDay(minDate), startOfDay(date)))
+      || (maxDate && isBefore(startOfDay(maxDate), startOfDay(date)))
+    ) {
       return;
     }
     setFromDate(date);
@@ -118,7 +122,7 @@ const SingleDatePicker = ({
       >
         <DateInputGroup
           handleClickDateInput={handleClickDateInput}
-          showCalendarIcon
+          showCalendarIcon={showCalendarIcon}
           fromDate={fromDate}
           minDate={minDate}
           maxDate={maxDate}
@@ -129,42 +133,45 @@ const SingleDatePicker = ({
           isSingle
           topBar={topBar}
         />
-        {
-          isOpen && containerRef.current ? (
-            <DialogWrapper isMobile={isMobile} targetElement={containerRef.current} onClose={toggleDialog}>
-              <Dialog
-                animateOpen={isOpenPrevous === false}
-                isOpen={isOpen}
-                toggleDialog={toggleDialog}
-                handleClickDateInput={handleClickDateInput}
-                inputFocus="from"
-                onSelectDate={onSelectDate}
-                onHoverDate={onHoverDate}
-                fromDate={fromDate}
-                hoverDate={hoverDate}
-                handleReset={handleReset}
-                handleChangeDate={onSelectDate}
-                startDatePlaceholder={startDatePlaceholder}
-                startWeekDay={startWeekDay}
-                minDate={minDate}
-                maxDate={maxDate}
-                dateFormat={dateFormat}
-                monthFormat={monthFormat}
-                isMobile={isMobile}
-                highlightToday={highlightToday}
-                isSingle
-                topBar={topBar}
-                DoneButton={DoneButton}
-              />
-            </DialogWrapper>
-          ) : null
-        }
+        {isOpen && containerRef.current ? (
+          <DialogWrapper
+            isMobile={isMobile}
+            targetElement={containerRef.current}
+            onClose={toggleDialog}
+          >
+            <Dialog
+              animateOpen={isOpenPrevous === false}
+              isOpen={isOpen}
+              toggleDialog={toggleDialog}
+              handleClickDateInput={handleClickDateInput}
+              inputFocus="from"
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              fromDate={fromDate}
+              hoverDate={hoverDate}
+              handleReset={handleReset}
+              handleChangeDate={onSelectDate}
+              startDatePlaceholder={startDatePlaceholder}
+              startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
+              dateFormat={dateFormat}
+              monthFormat={monthFormat}
+              isMobile={isMobile}
+              highlightToday={highlightToday}
+              isSingle
+              topBar={topBar}
+              DoneButton={DoneButton}
+            />
+          </DialogWrapper>
+        ) : null}
       </div>
     </div>
   );
 };
 
 SingleDatePicker.propTypes = {
+  showCalendarIcon: PropTypes.bool,
   isOpen: PropTypes.bool,
   onIsOpenChange: PropTypes.func,
   startDate: PropTypes.instanceOf(Date),
@@ -184,6 +191,7 @@ SingleDatePicker.propTypes = {
 };
 
 SingleDatePicker.defaultProps = {
+  showCalendarIcon: false,
   isOpen: false,
   onIsOpenChange: () => {},
   startDate: null,

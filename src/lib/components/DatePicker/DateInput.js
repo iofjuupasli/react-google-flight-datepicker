@@ -32,6 +32,7 @@ const formatDate = dateString => {
 };
 
 const DateInput = ({
+  showArrows,
   handleClickDateInput,
   showIcon,
   tabIndex,
@@ -49,8 +50,9 @@ const DateInput = ({
   maxDate,
 }) => {
   const validate = value => isValid(value)
-      && getYear(value) >= 2000 && getYear(value) < 2100
-      && (!fromDate || !isAfter(fromDate, value));
+    && getYear(value) >= 2000
+    && getYear(value) < 2100
+    && (!fromDate || !isAfter(fromDate, value));
 
   const [formattedDate, setFormattedDate] = useState(null);
   const [disablePrev, setDisablePrev] = useState(false);
@@ -61,15 +63,21 @@ const DateInput = ({
       const text = format(value, dateFormat);
       setFormattedDate(text);
 
-      if ((minDate && isAfter(startOfDay(addDays(minDate, 1)), startOfDay(value)))
-        || (name === 'END_DATE' && isBefore(startOfDay(value), startOfDay(addDays(fromDate, 1))))
+      if (
+        (minDate
+          && isAfter(startOfDay(addDays(minDate, 1)), startOfDay(value)))
+        || (name === 'END_DATE'
+          && isBefore(startOfDay(value), startOfDay(addDays(fromDate, 1))))
       ) {
         setDisablePrev(true);
       } else {
         setDisablePrev(false);
       }
 
-      if (maxDate && isBefore(startOfDay(subDays(maxDate, 1)), startOfDay(value))) {
+      if (
+        maxDate
+        && isBefore(startOfDay(subDays(maxDate, 1)), startOfDay(value))
+      ) {
         setDisableNext(true);
       } else {
         setDisableNext(false);
@@ -111,7 +119,11 @@ const DateInput = ({
 
   return (
     <div
-      className={cx('date', { 'is-focus': isFocus, 'is-single': isSingle, 'is-error': isError })}
+      className={cx('date', {
+        'is-focus': isFocus,
+        'is-single': isSingle,
+        'is-error': isError,
+      })}
       role="button"
       tabIndex={nonFocusable ? '-1' : tabIndex}
       onClick={handleClickDateInput}
@@ -157,7 +169,7 @@ const DateInput = ({
           />
         )}
       </Rifm>
-      {formattedDate && (
+      {showArrows && formattedDate && (
         <div className="change-date-group">
           <button
             type="button"
@@ -184,6 +196,7 @@ const DateInput = ({
 };
 
 DateInput.propTypes = {
+  showArrows: PropTypes.bool,
   handleClickDateInput: PropTypes.func,
   showIcon: PropTypes.bool,
   tabIndex: PropTypes.string,
@@ -202,6 +215,7 @@ DateInput.propTypes = {
 };
 
 DateInput.defaultProps = {
+  showArrows: false,
   handleClickDateInput: () => {},
   showIcon: false,
   tabIndex: '',

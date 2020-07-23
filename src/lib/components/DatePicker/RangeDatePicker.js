@@ -12,6 +12,7 @@ import DialogWrapper from './DialogWrapper';
 import Dialog from './Dialog';
 
 const RangeDatePicker = ({
+  showCalendarIcon,
   isOpen,
   onIsOpenChange,
   startDate,
@@ -106,7 +107,10 @@ const RangeDatePicker = ({
 
   function onSelectDate(date) {
     if (inputFocus) {
-      if (inputFocus === 'from' || (fromDate && isBefore(startOfDay(date), startOfDay(fromDate)))) {
+      if (
+        inputFocus === 'from'
+        || (fromDate && isBefore(startOfDay(date), startOfDay(fromDate)))
+      ) {
         setFromDate(date);
         if (toDate && isAfter(startOfDay(date), startOfDay(toDate))) {
           setToDate(null);
@@ -137,7 +141,10 @@ const RangeDatePicker = ({
   }
 
   function handleChangeDate(value, input) {
-    if ((minDate && isAfter(startOfDay(minDate), startOfDay(value))) || (maxDate && isBefore(startOfDay(maxDate), startOfDay(value)))) {
+    if (
+      (minDate && isAfter(startOfDay(minDate), startOfDay(value)))
+      || (maxDate && isBefore(startOfDay(maxDate), startOfDay(value)))
+    ) {
       return;
     }
 
@@ -169,7 +176,7 @@ const RangeDatePicker = ({
       >
         <DateInputGroup
           handleClickDateInput={handleClickDateInput}
-          showCalendarIcon
+          showCalendarIcon={showCalendarIcon}
           fromDate={fromDate}
           toDate={toDate}
           minDate={minDate}
@@ -182,44 +189,47 @@ const RangeDatePicker = ({
           nonFocusable={isOpen}
           topBar={topBar}
         />
-        {
-          isOpen && containerRef.current ? (
-            <DialogWrapper isMobile={isMobile} targetElement={containerRef.current} onClose={toggleDialog}>
-              <Dialog
-                animateOpen={isOpenPrevous === false}
-                isOpen={isOpen}
-                toggleDialog={toggleDialog}
-                handleClickDateInput={handleClickDateInput}
-                inputFocus={inputFocus}
-                setInputFocus={setInputFocus}
-                onSelectDate={onSelectDate}
-                onHoverDate={onHoverDate}
-                fromDate={fromDate}
-                toDate={toDate}
-                hoverDate={hoverDate}
-                handleReset={handleReset}
-                handleChangeDate={handleChangeDate}
-                startDatePlaceholder={startDatePlaceholder}
-                endDatePlaceholder={endDatePlaceholder}
-                startWeekDay={startWeekDay}
-                minDate={minDate}
-                maxDate={maxDate}
-                dateFormat={dateFormat}
-                monthFormat={monthFormat}
-                isMobile={isMobile}
-                highlightToday={highlightToday}
-                topBar={topBar}
-                DoneButton={DoneButton}
-              />
-            </DialogWrapper>
-          ) : null
-        }
+        {isOpen && containerRef.current ? (
+          <DialogWrapper
+            isMobile={isMobile}
+            targetElement={containerRef.current}
+            onClose={toggleDialog}
+          >
+            <Dialog
+              animateOpen={isOpenPrevous === false}
+              isOpen={isOpen}
+              toggleDialog={toggleDialog}
+              handleClickDateInput={handleClickDateInput}
+              inputFocus={inputFocus}
+              setInputFocus={setInputFocus}
+              onSelectDate={onSelectDate}
+              onHoverDate={onHoverDate}
+              fromDate={fromDate}
+              toDate={toDate}
+              hoverDate={hoverDate}
+              handleReset={handleReset}
+              handleChangeDate={handleChangeDate}
+              startDatePlaceholder={startDatePlaceholder}
+              endDatePlaceholder={endDatePlaceholder}
+              startWeekDay={startWeekDay}
+              minDate={minDate}
+              maxDate={maxDate}
+              dateFormat={dateFormat}
+              monthFormat={monthFormat}
+              isMobile={isMobile}
+              highlightToday={highlightToday}
+              topBar={topBar}
+              DoneButton={DoneButton}
+            />
+          </DialogWrapper>
+        ) : null}
       </div>
     </div>
   );
 };
 
 RangeDatePicker.propTypes = {
+  showCalendarIcon: PropTypes.bool,
   isOpen: PropTypes.bool,
   onIsOpenChange: PropTypes.func,
   startDate: PropTypes.instanceOf(Date),
@@ -241,6 +251,7 @@ RangeDatePicker.propTypes = {
 };
 
 RangeDatePicker.defaultProps = {
+  showCalendarIcon: false,
   isOpen: false,
   onIsOpenChange: () => {},
   startDate: null,

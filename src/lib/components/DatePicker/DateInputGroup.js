@@ -40,12 +40,13 @@ const DateInputGroup = ({
   return (
     <div className="date-picker-input-container">
       <div className="date-picker-input">
-        {showCalendarIcon
-          && <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />}
+        {showCalendarIcon && (
+          <CalendarIcon className="icon-calendar mobile" viewBox="0 0 24 24" />
+        )}
         <div className="date-picker-date-group">
           <DateInput
             handleClickDateInput={handleClickFromInput}
-            showIcon
+            showIcon={showCalendarIcon}
             tabIndex={nonFocusable ? '-1' : '0'}
             isFocus={inputFocus === 'from'}
             value={fromDate}
@@ -59,8 +60,7 @@ const DateInputGroup = ({
             minDate={minDate}
             maxDate={maxDate}
           />
-          {!isSingle
-          && (
+          {!isSingle && (
             <DateInput
               handleClickDateInput={handleClickToInput}
               tabIndex="0"
