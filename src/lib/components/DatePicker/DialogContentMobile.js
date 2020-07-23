@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-  getYear,
-  getMonth,
-  differenceInMonths,
-  parseISO,
+  getYear, getMonth, differenceInMonths, parseISO,
 } from 'date-fns';
 import { VariableSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -48,7 +45,7 @@ const DialogContentMobile = ({
 
       const timeoutId = setTimeout(() => {
         if (listRef.current) {
-          listRef.current.scrollToItem(monthDiff + 1, 'smart');
+          listRef.current.scrollToItem(monthDiff, 'smart');
         }
       }, 300);
 
@@ -117,20 +114,19 @@ const DialogContentMobile = ({
     const arrWeekDay = getWeekDay(startWeekDay);
 
     return arrWeekDay.map((day, index) => (
-      <div className="weekday" key={index}>{day}</div>
+      <div className="weekday" key={index}>
+        {day}
+      </div>
     ));
   }
 
   return (
     <div className="calendar-wrapper">
       <div className="calendar-content">
-        <div className="weekdays mobile">
-          {generateWeekDay()}
-        </div>
+        <div className="weekdays mobile">{generateWeekDay()}</div>
         {renderMonthCalendars()}
       </div>
     </div>
-
   );
 };
 

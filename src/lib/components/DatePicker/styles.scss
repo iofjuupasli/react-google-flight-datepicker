@@ -634,6 +634,11 @@
       transform: none;
       z-index: 999999999;
 
+      &.open-immediate {
+        transform: translate(0, -100%);
+        animation: none;
+      }
+
       &.open {
         transition: all 0.2s ease-out;
         transform: translate(0, -100%);
