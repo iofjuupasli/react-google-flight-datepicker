@@ -542,29 +542,21 @@
   }
 
   /** RESPONSIVE MOBILE */
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 900px) {
     .date-picker-demo {
       width: 100%;
     }
 
-    .date-picker-input {
-      height: 40px;
-      position: relative;
-    }
-
     .date {
-      border: 1px solid #dadce0;
-      border-radius: 5px;
-      padding: 0 10px;
-      flex-grow: 1;
+      padding: 0;
 
       &:nth-child(2) {
         margin-left: 10px;
       }
+    }
 
-      &.is-focus {
-        height: 40px;
-      }
+    .selected-date {
+      font-size: 1rem;
     }
 
     .icon-calendar {
@@ -647,7 +639,6 @@
       z-index: 50;
 
       .date-picker-input {
-        height: 40px;
         width: 100%;
       }
     }
@@ -670,7 +661,6 @@
       height: 100%;
       flex-direction: column;
       flex-grow: 1;
-
     }
 
     .weekdays.mobile {
