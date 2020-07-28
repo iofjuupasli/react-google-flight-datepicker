@@ -25,10 +25,10 @@ const formatDate = dateString => {
 
   return chars
     .reduce(
-      (r, v, index) => (index === 2 || index === 4 ? `${r}/${v}` : `${r}${v}`),
+      (r, v, index) => (index === 2 || index === 4 ? `${r} / ${v}` : `${r}${v}`),
       '',
     )
-    .substr(0, 10);
+    .substr(0, 14);
 };
 
 const DateInput = ({
@@ -139,16 +139,16 @@ const DateInput = ({
           const res = formatDate(dateString);
           if (dateString.endsWith('/')) {
             if (res.length === 2) {
-              return `${res}/`;
+              return `${res} / `;
             }
-            if (res.length === 5) {
-              return `${res}/`;
+            if (res.length === 7) {
+              return `${res} / `;
             }
           }
 
           return res;
         }}
-        append={v => (v.length === 2 || v.length === 5 ? `${v}/` : v)}
+        append={v => (v.length === 2 || v.length === 7 ? `${v} / ` : v)}
         value={formattedDate || ''}
         onChange={value => {
           setFormattedDate(value);
@@ -223,7 +223,7 @@ DateInput.defaultProps = {
   value: null,
   placeholder: null,
   handleChangeDate: () => {},
-  dateFormat: 'dd/MM/yyyy',
+  dateFormat: 'dd / MM / yyyy',
   isSingle: false,
   onFocus: () => {},
   name: '',

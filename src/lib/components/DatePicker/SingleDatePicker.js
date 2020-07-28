@@ -203,7 +203,7 @@ SingleDatePicker.defaultProps = {
   startWeekDay: 'monday',
   minDate: null,
   maxDate: null,
-  dateFormat: 'dd/MM/yyyy',
+  dateFormat: 'dd / MM / yyyy',
   monthFormat: 'MMMM - yyyy',
   highlightToday: false,
   topBar: null,

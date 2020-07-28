@@ -36,15 +36,13 @@
   }
 
   .date-picker-input {
-    width: 390px;
+    width: 416px;
     display: flex;
     justify-content: space-between;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    color: #3c4043;
+    color: #212429;
     height: 56px;
     letter-spacing: 0.2px;
-    font-size: 1rem;
+    font-size: 1.25rem;
     align-items: center;
     overflow: visible;
 
@@ -60,52 +58,45 @@
     display: flex;
     justify-content: space-between;
     height: 100%;
+    width: 100%;
     flex-grow: 1;
   }
 
   .date {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     height: 100%;
     position: relative;
-    border-radius: 2px 0 0 2px;
     padding: 0 13px;
     flex-grow: 1;
     width: 50%;
     background: white;
     border-radius: 4px;
-
-    &.is-single::before {
-      display: none;
-    }
+    border: 1px solid #ACB5BD;
   }
 
-  .date:first-child::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 1px;
-    height: 70%;
-    background: #dadce0;
+  .date:nth-child(2) {
+    margin-left: 90px;
   }
 
   .selected-date {
+    color: #212429;
     border: none;
     outline: none;
     height: 100%;
+    width: 100%;
     box-sizing: border-box;
     background: none;
-    width: 0;
     display: flex;
     flex: 1 1 0px;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 1.25rem;
     line-height: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: center;
   }
 
   .date-placeholder {
@@ -210,7 +201,7 @@
 
   .dialog-header .date-picker-input {
     height: 56px;
-    width: 390px;
+    width: 416px;
   }
 
   .date.is-focus {
@@ -558,8 +549,6 @@
 
     .date-picker-input {
       height: 40px;
-      border: none;
-      border-radius: 0;
       position: relative;
     }
 
@@ -576,10 +565,6 @@
       &.is-focus {
         height: 40px;
       }
-    }
-
-    .date:first-child::before {
-      display: none;
     }
 
     .icon-calendar {

@@ -1,6 +1,6 @@
 {
   "name": "@outofaxis/react-google-flight-datepicker",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "An ReactJS implementation for Google Flight date-picker by JSLancer team",
   "author": "David Tran, Leo Phan",
   "license": "MIT",
