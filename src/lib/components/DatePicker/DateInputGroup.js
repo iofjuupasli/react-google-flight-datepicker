@@ -75,7 +75,7 @@ const DateInputGroup = ({
   );
 
   if (children) {
-    return children({ startDateInput, endDateInput });
+    return children({ startDateInput, endDateInput, topBar });
   }
 
   return (

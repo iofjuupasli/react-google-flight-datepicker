@@ -29,6 +29,7 @@ const SingleDatePicker = ({
   highlightToday,
   topBar,
   DoneButton,
+  children,
 }) => {
   const containerRef = useRef(null);
   const [fromDate, setFromDate] = useState();
@@ -132,7 +133,9 @@ const SingleDatePicker = ({
           onFocus={onDateInputFocus}
           isSingle
           topBar={topBar}
-        />
+        >
+          {children}
+        </DateInputGroup>
         {isOpen && containerRef.current ? (
           <DialogWrapper
             isMobile={isMobile}
@@ -188,6 +191,7 @@ SingleDatePicker.propTypes = {
   highlightToday: PropTypes.bool,
   topBar: PropTypes.node,
   DoneButton: PropTypes.elementType,
+  children: PropTypes.func,
 };
 
 SingleDatePicker.defaultProps = {
@@ -208,6 +212,7 @@ SingleDatePicker.defaultProps = {
   highlightToday: false,
   topBar: null,
   DoneButton: null,
+  children: null,
 };
 
 export default SingleDatePicker;
