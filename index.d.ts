@@ -20,6 +20,7 @@ declare module "@outofaxis/react-google-flight-datepicker" {
     highlightToday?: boolean;
     topBar?: React.ReactNode;
     DoneButton?: React.ElementType<{ onClick: Function }>;
+    dialogTargetOffset?: string;
     children?: ({
       startDateInput,
       endDateInput,
@@ -50,6 +51,7 @@ declare module "@outofaxis/react-google-flight-datepicker" {
     highlightToday?: boolean;
     topBar?: React.ReactNode;
     DoneButton?: React.ElementType<{ onClick: Function }>;
+    dialogTargetOffset?: string;
     children?: ({
       startDateInput,
       endDateInput,
