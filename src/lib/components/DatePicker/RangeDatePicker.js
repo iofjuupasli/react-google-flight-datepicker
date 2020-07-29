@@ -31,6 +31,7 @@ const RangeDatePicker = ({
   highlightToday,
   topBar,
   DoneButton,
+  dialogTargetOffset,
   children,
 }) => {
   const containerRef = useRef(null);
@@ -197,6 +198,7 @@ const RangeDatePicker = ({
             isMobile={isMobile}
             targetElement={containerRef.current}
             onClose={toggleDialog}
+            targetOffset={dialogTargetOffset}
           >
             <Dialog
               animateOpen={isOpenPrevous === false}
@@ -251,6 +253,7 @@ RangeDatePicker.propTypes = {
   highlightToday: PropTypes.bool,
   topBar: PropTypes.node,
   DoneButton: PropTypes.elementType,
+  dialogTargetOffset: PropTypes.string,
   children: PropTypes.func,
 };
 

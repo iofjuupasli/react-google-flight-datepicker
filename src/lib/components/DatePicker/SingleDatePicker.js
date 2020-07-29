@@ -29,6 +29,7 @@ const SingleDatePicker = ({
   highlightToday,
   topBar,
   DoneButton,
+  dialogTargetOffset,
   children,
 }) => {
   const containerRef = useRef(null);
@@ -141,6 +142,7 @@ const SingleDatePicker = ({
             isMobile={isMobile}
             targetElement={containerRef.current}
             onClose={toggleDialog}
+            targetOffset={dialogTargetOffset}
           >
             <Dialog
               animateOpen={isOpenPrevous === false}
@@ -191,6 +193,7 @@ SingleDatePicker.propTypes = {
   highlightToday: PropTypes.bool,
   topBar: PropTypes.node,
   DoneButton: PropTypes.elementType,
+  dialogTargetOffset: PropTypes.string,
   children: PropTypes.func,
 };
 

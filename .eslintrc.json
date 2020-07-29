@@ -50,6 +50,7 @@
       "error",
       "always"
     ],
+    "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
     "react-hooks/rules-of-hooks": "error",
     "newline-before-return": "error",

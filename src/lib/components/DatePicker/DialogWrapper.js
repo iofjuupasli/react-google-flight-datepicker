@@ -4,17 +4,24 @@ import PropTypes from 'prop-types';
 import Popover from './Popover';
 
 const DialogWrapper = ({
-  children, isMobile, targetElement, onClose,
-}) => (isMobile ? createPortal(
-  <div className="react-google-flight-datepicker">
-    {children}
-  </div>,
-  document.querySelector('body'),
+  children,
+  isMobile,
+  targetElement,
+  onClose,
+  targetOffset,
+}) => (isMobile ? (
+  createPortal(
+    <div className="react-google-flight-datepicker">{children}</div>,
+    document.querySelector('body'),
+  )
 ) : (
-  <Popover targetElement={targetElement} onClickOutside={onClose} onEsc={onClose}>
-    <div className="react-google-flight-datepicker">
-      {children}
-    </div>
+  <Popover
+    targetElement={targetElement}
+    onClickOutside={onClose}
+    onEsc={onClose}
+    targetOffset={targetOffset}
+  >
+    <div className="react-google-flight-datepicker">{children}</div>
   </Popover>
 ));
 
@@ -23,6 +30,7 @@ DialogWrapper.propTypes = {
   children: PropTypes.node,
   targetElement: PropTypes.any.isRequired,
   onClose: PropTypes.func.isRequired,
+  targetOffset: PropTypes.string,
 };
 
 DialogWrapper.defaultProps = {
